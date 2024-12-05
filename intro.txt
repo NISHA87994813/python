@@ -1,0 +1,213 @@
+Regular Expression
+
+	pip install re
+
+module : re
+
+re is a text matching patterns
+also known as regex or regexp
+use to 
+	find repetition,
+	to text-matching and much more
+	
+=============================================================================================
+. : any char
+* : any number of char
+? : non-greedy match
+(): use for grouping
+[] : use to create a char set(group) for matching.will search for any of the char of 
+	the group.
+^ : use to exclude terms by incorporating it into the bracket syntax notation.
+Ex:
+	[^!.? ] : to check for matches that are not a !,.,? or space.
+	we can add + to check for at least once . Ex : re9.py
+=============================================================================================
+regular expression flags
+	re.DEBUG : display debug information about compiled expressions.
+	
+	re.I : IGNORECASE: performs a case-insensitive matching
+	
+	re.L,re.LOCALE : make \w,\W,\b,\B,\s and \S depends on the current locale.
+		
+	re.M : re.MULTILINE : when specified, the pattern character '^' matches at the 
+	begining of the string and at the begining of each line (immediately following
+	each new line); and the pattern character '$' matches at the end of the string and at
+	the end of each line (immediately preceding each newline).
+	Ex:
+		hi\nhello
+		^hi$\n^hello$
+		
+	re.S,re.DOTALL: make the '.' special character match any character at all, including 
+	a newline; without this flag, '.' will match anything except a newline.
+	
+	re.U,re.UNICODE : make the \w,\W,\b,\B,\d,\D,\s and \S sequence dependent on the Unicode
+	character properties database.
+	
+	re.X,re.VERBOSE : Permits "cuter" regular expression syntax. it ignores whitespaces
+	(except inside a set [] or when escaped by a backslash) and treats unescaped # as a 
+	comment marker.
+=============================================================================================
+Regression syntax
+	A pattern followed by the meta-character * is repeated zero or more times
+	
+	Replace the * with + and pattern must appear at least once.
+	
+	Using ? means the pattern appears zero or one time. (after pattern)
+	
+	For a specific number of occurances, use {m} after the pattern, where m is replaced
+	with the number of times the pattern should repeat.
+	
+	use  {m,n} wher em is the minimum number of repetitions and n is the maximum.
+	Leaving out n ({m,}) means the value appears at least m times, with no maximum.
+	
+	
+	re7.py
+	re8.py
+=========================================================================================	
+Exclusion : re9.py
+	we can use ^ to exclude terms by incorporating it into the bracket syntax notation.
+	Use [^!.? ] to check for matches that are not a !,.,.? or space. Add the + to check 
+	that the match appears at least once, this basically translates to finding the words.	
+	
+=============================================================================================
+Character Range : re10.py
+	As character sets grow larger, typing every character that should (or should not)
+	match could become very tedious.
+	A more compace format using character ranges lets to include all of the contiguous
+	characters between a start and stop point.
+	The format used is [start-end].
+	
+	common use cases are 
+		to search for a specific range of letters in the alphabet
+		such as [a-f] would return matches with any instanc of letters between a and f.
+		
+		to search for a specific range of letters in the alphabet
+		such as [a-fx-z] would return matches with any instanc of letters 
+		between a and f or x and z.
+		
+		[a-f][x-z] : matches two chars seq 
+			first from a to f
+			sec from x to z
+=============================================================================================
+Escape Codes : re11.py
+	
+		Escapes are indicated by prefixing the character with a backslash(\).
+		
+		Unfortunately, a backslash must itself be escaped in normal python strings,
+		and that results in expression that are difficult to read.
+		
+		Using raw strings, created by prefixing the literal with r, for createing regular
+		expressions eliminates this problem and maintains readability.
+		
+		code				meaning
+		\d 		:		a digit
+		\D 		:		a non - digit
+		\s 		:		whitespaces (tab,space,newline etc.)
+		\S 		:		a non - whitespaces
+		\w 		:		alphanumeric
+		\W 		:		a non - alphanumeric
+=============================================================================================
+Substitution : re12.py
+	syntax:
+	re.sub(pattern,repl,string,max=0)
+	
+		this method replace all occurances of the RE pattern in string with repl,
+		substituting all occurances unless max provided.
+		
+		This method returns a modified string.
+=============================================================================================
+Regex Patterns : re13.py
+	^		:	matches begining of line
+	$		:	matches end of line
+	.		: 	matches any single char except new line.Using m flag allows to match new line also.
+	[...]	:	matches any single char in a bracket
+			Ex : [abc]
+	[^...]	:	matches any single char not in a bracket
+			Ex : [^abc]
+	a|b 	: 	matches either a or b.
+		same as [ab]
+		
+	(re)	: 	groups regular expressions and remembers matched text
+	(?:re)	:	groups regular expressions without remembering matched text
+	(?imx:re)	:	temporarily toggles on i,m or x options with paranthesis.
+	(?-imx:re)	:	temporarily toggles off i,m or x options with paranthesis.
+	(?imx)	:	temporarily toggles on i,m or x options with a regular expression. 
+			if in paranthesis, only that area is affected.
+	(?-imx)	:	temporarily toggles off i,m or x options with a regular expression. if in	
+			paranthesis, only that area is affected.
+			
+	(?=re)		: specified position using a pattern, Doesn't have a range.
+	(?!re)		: specified position using a negation, Doesn't have a range.
+	(?>re)		: matches independent pattern without backtracking.
+	\A			: matches begining of the string.
+	\Z			: matches begining of the string.
+			if new line exists it matches just before a new line
+	\z			: matches end of string
+	\G			: matches point where last match finish
+	\b			: matches word bountries when outside brackets. Matches 
+				backspaces (0x08) when inside brackets.
+				
+	\B			: matches nonword bountries
+	\n,\t		: matches new line, tab, carriage returns etc.
+	\1....\9	: matches nth group subexpressions
+	\10			: matches nth group subexpressions if it matches already.
+				otherwise refers octal representation of a char code.
+	(?#..)		: matches comment.
+=============================================================================================
+greedy and non-greedy matching : re14.py
+	<.*>	: Greedy repetition : matches <python>perl>
+	<.*?>  	: non-greedy repetition : matches <python> in <python>perl>
+	
+Special syntax with Parantheses : re15.py
+	R(?i)uby 	: case-insensitive with matching "uby"
+	R(?i:uby)	: same as above
+	rub(?i:y|le)	: Group only without creating \1 backreference
+	rub(y|le) : ruby or ruble
+=============================================================================================
+BackReferences
+	This matches a previous matched group again.
+	([Pp])ython&\1ails 		: match Python&Pails or python&pails	
+	(['"])([a-z])[^\1]*\2 	signle or double quoted string : 
+		\1 matches whatever the first group matched.
+		\2 matches whatever the second group matched.
+		
+Anchors : re17.py
+	Python(?=!) : Match "Python", if followed by an explamation point
+	Python(?= (\w+o\w+))
+	Python(?!!) : Match "Python", if not followed by an explamation point
+	
+=============================================================================================
+capturing in the pattern for split
+	re16.py
+split and zero with assertion:
+	if want to split with word boundaries
+	\b is a zero-width assertion.
+	It requires that certain characters be present, but it doesn't "consume" them.
+			re18.py
+=============================================================================================
+Look Around	: re19.py
+	Q. we can split on any 4-letter word.
+	But what if we want to split in any 4-letter word but born?
+	Theory
+	we can use a look-ahead assertion.
+	Look-aheads and look-behinds come in to two flavors:
+		positive and negative
+		All four are zero-width assertions.
+		they require certain chars to be present or absent.
+		but dont consume the characters.
+	Look-behind negative is denoted by <?!
+=============================================================================================
+search()
+	rtn : match object on success
+	rtn : None on failure
+=============================================================================================
+match()
+	grouping	
+====================================================================================================
+split,findall,finditer
+	re.split() returns a list with the term to split on removed and the terms in the list 
+	are a split up version of the string.
+	
+	re.findall() uses to find all the instances of a pattern in a string.
+	re.finditer() returns an iterator over all matches of the pattern in the string.
+====================================================================================================
