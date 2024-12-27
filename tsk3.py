@@ -2,6 +2,6 @@ def gen():
     yield "hello"
     yield "buy"
 x=gen()
-print(next(x))    
+p#rint(next(x))    
 print(next(x))   
  

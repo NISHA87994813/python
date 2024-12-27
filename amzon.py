@@ -26,6 +26,7 @@ while True:
                         admin.append(d)
                         print(admin)
                         
+                        
                 elif ch==2:
                         print("2.login")
                         uName=input("enter your user name")

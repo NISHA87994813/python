@@ -1,0 +1,11 @@
+{
+    "search.useGlobalIgnoreFiles": true,
+    "files.exclude": {
+        "": true,
+        "gitignore": true
+    },
+    "search.exclude": {
+        "": true
+    },
+    "search.useParentIgnoreFiles": true
+}
